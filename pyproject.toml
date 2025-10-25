@@ -1,0 +1,18 @@
+[project]
+name = "ragqueen"
+version = "0.1.0"
+description = "A RagQueen? I am the Queen of Rags!"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph",
+    "langchain",
+    "langchain-community",
+    "langchain[ollama]",
+    "langchain-text-splitters",
+    "bs4",
+    "sentence-transformers",
+    "numpy",
+    "faiss-cpu",
+    "ollama",
+]
