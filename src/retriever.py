@@ -10,15 +10,15 @@ class Retriever:
         self.texts = []
 
     def build_index(self, chunks):
+        if len(chunks) > 0 and hasattr(chunks[0], "page_content"):
+            chunks = [doc.page_content for doc in chunks]
         embeddings = self.embedder.encode(chunks, show_progress_bar=True)
         self.index = faiss.IndexFlatL2(embeddings.shape[1])
         self.index.add(np.array(embeddings, dtype=np.float32))
         self.texts = chunks
-        print("Indices built")
 
     def retrieve(self, query, k=3):
         query_emb = self.embedder.encode([query])
         distances, indices = self.index.search(np.array(query_emb, dtype=np.float32), k)
-        print("Retrieving")
         return [self.texts[i] for i in indices[0]]
 
