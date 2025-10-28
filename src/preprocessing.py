@@ -2,7 +2,7 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class Preprocessor:
-    def __init__(self, chunk_size: int = 100, chunk_overlap: int = 50):
+    def __init__(self, chunk_size: int = 100, chunk_overlap: int = 25):
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap
@@ -20,11 +20,6 @@ class Preprocessor:
     
     def data_splitter(self, docs):
         docs_list = [item for sublist in docs for item in sublist]
-        
-        #text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        #    chunk_size=100, chunk_overlap=50
-        #)
-        
         doc_splits = self.text_splitter.split_documents(docs_list)
         return doc_splits
  
