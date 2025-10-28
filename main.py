@@ -1,6 +1,6 @@
 from src import Preprocessor
 from src.retriever import Retriever
-#from src.model_interface import OllamaModel
+from src.model_interface import OllamaModel
  
 def main():
     preprocessor = Preprocessor()
@@ -10,14 +10,14 @@ def main():
     retriever = Retriever()
     retriever.build_index(chunks)
 
-    query = "What are the key insights from the text?"
+    query = "What is the main field of research this person works on?"
     retrieved_chunks = retriever.retrieve(query)
 
- #   model = OllamaModel()
- #   context = "\n".join(retrieved_chunks)
- #   prompt = f"Use the context below to answer the question:\n\n{context}\n\nQuestion: {query}"
- #   answer = model.generate(prompt)
- #   print("💬 Llama3.1 answer:\n", answer)
+    model = OllamaModel()
+    context = "\n".join(retrieved_chunks)
+    prompt = f"Use the context below to answer the question:\n\n{context}\n\nQuestion: {query}"
+    answer = model.generate(prompt)
+    print("💬 Llama3.1 answer:\n", answer)
 
 
 if __name__ == "__main__":
