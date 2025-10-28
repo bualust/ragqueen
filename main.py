@@ -10,8 +10,8 @@ def main():
     retriever = Retriever()
     retriever.build_index(chunks)
 
- #   query = "What are the key insights from the text?"
- #   retrieved_chunks = retriever.retrieve(query)
+    query = "What are the key insights from the text?"
+    retrieved_chunks = retriever.retrieve(query)
 
  #   model = OllamaModel()
  #   context = "\n".join(retrieved_chunks)
