@@ -3,25 +3,14 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class Preprocessor:
     def __init__(self, chunk_size: int = 1000, chunk_overlap: int = 500):
+        print(f"Using chunk_size = {chunk_size}, chunk_overlap = {chunk_overlap}")
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap
         )
     
-    def data_loader(self):
-        urls = [
-            "https://docs.smoothbrained.co.uk/general/services/",
-            "https://docs.smoothbrained.co.uk/general/roster/",
-            "https://docs.smoothbrained.co.uk/general/deployment/",
-            "https://docs.smoothbrained.co.uk/general/deployment/domain-names/",
-            "https://docs.smoothbrained.co.uk/tutorials/adding-users/",
-            "https://docs.smoothbrained.co.uk/tutorials/adding-machines/",
-            "https://docs.smoothbrained.co.uk/tutorials/setting-up-a-webserver/",
-            "https://docs.smoothbrained.co.uk/tutorials/vpn-guide/",
-            "https://docs.smoothbrained.co.uk/tutorials/ldap/",
-            "https://docs.smoothbrained.co.uk/tutorials/ldap/sys_accounts/",
-        ]
-        
+    def data_loader(self,urls):
+        print(f"Scanning following urls:\n{urls}")
         docs = [WebBaseLoader(url).load() for url in urls]
         return docs
     
