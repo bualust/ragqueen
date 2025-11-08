@@ -2,19 +2,15 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class Preprocessor:
-    def __init__(self, chunk_size: int = 100, chunk_overlap: int = 50):
+    def __init__(self, chunk_size: int = 1000, chunk_overlap: int = 500):
+        print(f"Using chunk_size = {chunk_size}, chunk_overlap = {chunk_overlap}")
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap
         )
     
-    def data_loader(self):
-        urls = [
-            "https://bualust.github.io/",
-            "https://bualust.github.io/aboutme/",
-            "https://bualust.github.io/leader/",
-        ]
-        
+    def data_loader(self,urls):
+        print(f"Scanning following urls:\n{urls}")
         docs = [WebBaseLoader(url).load() for url in urls]
         return docs
     
