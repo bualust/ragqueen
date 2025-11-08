@@ -10,7 +10,7 @@ def main():
     retriever = Retriever()
     retriever.build_index(chunks)
 
-    query = "What is the main field of research this person works on?"
+    query = "Give me a list of services currently listed in SmoothBrained UK"
     retrieved_chunks = retriever.retrieve(query)
 
     model = OllamaModel()

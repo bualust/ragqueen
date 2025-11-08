@@ -2,7 +2,7 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 class Preprocessor:
-    def __init__(self, chunk_size: int = 100, chunk_overlap: int = 50):
+    def __init__(self, chunk_size: int = 1000, chunk_overlap: int = 500):
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap
@@ -10,9 +10,16 @@ class Preprocessor:
     
     def data_loader(self):
         urls = [
-            "https://bualust.github.io/",
-            "https://bualust.github.io/aboutme/",
-            "https://bualust.github.io/leader/",
+            "https://docs.smoothbrained.co.uk/general/services/",
+            "https://docs.smoothbrained.co.uk/general/roster/",
+            "https://docs.smoothbrained.co.uk/general/deployment/",
+            "https://docs.smoothbrained.co.uk/general/deployment/domain-names/",
+            "https://docs.smoothbrained.co.uk/tutorials/adding-users/",
+            "https://docs.smoothbrained.co.uk/tutorials/adding-machines/",
+            "https://docs.smoothbrained.co.uk/tutorials/setting-up-a-webserver/",
+            "https://docs.smoothbrained.co.uk/tutorials/vpn-guide/",
+            "https://docs.smoothbrained.co.uk/tutorials/ldap/",
+            "https://docs.smoothbrained.co.uk/tutorials/ldap/sys_accounts/",
         ]
         
         docs = [WebBaseLoader(url).load() for url in urls]
