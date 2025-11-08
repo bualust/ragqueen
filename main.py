@@ -31,7 +31,19 @@ def main():
     chunk_size = yaml_data["chunk_size"]
     chunk_overlap = yaml_data["chunk_overlap"]
     preprocessor = Preprocessor(chunk_size, chunk_overlap)
-    texts = preprocessor.data_loader(yaml_data["urls"])
+    has_urls = "urls" in yaml_data and yaml_data["urls"]
+    has_repo = "repo_url" in yaml_data and yaml_data["repo_url"]
+
+    if has_urls and has_repo:
+        raise ValueError("Only provide either `urls` or `repo_url`")
+    elif has_urls:
+        texts = preprocessor.data_loader_urls(yaml_data["urls"])
+    elif has_repo:
+        texts = preprocessor.data_loader_repo(yaml_data["repo_url"])
+    else:
+        raise ValueError("Provide either `urls` or `repo_url`")
+        
+        
     chunks = preprocessor.data_splitter(texts)
 
     retriever = Retriever()

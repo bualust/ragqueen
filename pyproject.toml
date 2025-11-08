@@ -15,4 +15,7 @@ dependencies = [
     "numpy",
     "faiss-cpu",
     "ollama",
+    "GitPython",
+    "unstructured",
+    "markdown",
 ]

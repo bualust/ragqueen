@@ -1,14 +1,15 @@
 query: "What are the addresses for the admin subnet in SmoothBrained UK?"
 chunk_size: 1000
 chunk_overlap: 500
-urls:
-  - "https://docs.smoothbrained.co.uk/general/services/"
-  - "https://docs.smoothbrained.co.uk/general/roster/"
-  - "https://docs.smoothbrained.co.uk/general/deployment/"
-  - "https://docs.smoothbrained.co.uk/general/deployment/domain-names/"
-  - "https://docs.smoothbrained.co.uk/tutorials/adding-users/"
-  - "https://docs.smoothbrained.co.uk/tutorials/adding-machines/"
-  - "https://docs.smoothbrained.co.uk/tutorials/setting-up-a-webserver/"
-  - "https://docs.smoothbrained.co.uk/tutorials/vpn-guide/"
-  - "https://docs.smoothbrained.co.uk/tutorials/ldap/"
-  - "https://docs.smoothbrained.co.uk/tutorials/ldap/sys_accounts/"
+repo_url: "https://gitlab.com/smoothbrained-uk/documentation.git"
+#urls:
+#  - "https://docs.smoothbrained.co.uk/general/services/"
+#  - "https://docs.smoothbrained.co.uk/general/roster/"
+#  - "https://docs.smoothbrained.co.uk/general/deployment/"
+#  - "https://docs.smoothbrained.co.uk/general/deployment/domain-names/"
+#  - "https://docs.smoothbrained.co.uk/tutorials/adding-users/"
+#  - "https://docs.smoothbrained.co.uk/tutorials/adding-machines/"
+#  - "https://docs.smoothbrained.co.uk/tutorials/setting-up-a-webserver/"
+#  - "https://docs.smoothbrained.co.uk/tutorials/vpn-guide/"
+#  - "https://docs.smoothbrained.co.uk/tutorials/ldap/"
+#  - "https://docs.smoothbrained.co.uk/tutorials/ldap/sys_accounts/"
