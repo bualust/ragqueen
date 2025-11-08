@@ -1,4 +1,3 @@
-query: "What are the addresses for the admin subnet in SmoothBrained UK?"
 chunk_size: 1000
 chunk_overlap: 500
 repo_url: "https://gitlab.com/smoothbrained-uk/documentation.git"

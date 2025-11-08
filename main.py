@@ -49,7 +49,7 @@ def main():
     retriever = Retriever()
     retriever.build_index(chunks)
 
-    query = yaml_data["query"]
+    query = input("Enter your question: ")
     retrieved_chunks = retriever.retrieve(query)
 
     model = OllamaModel()
