@@ -1,15 +1,16 @@
 from src import Preprocessor
 from src.retriever import Retriever
 from src.model_interface import OllamaModel
-from optparse import OptionParser, OptionError
+import argparse
 import yaml
  
 def main():
 
     #loading data from configuration file
-    parser = OptionParser()
-    parser.add_option(
+    parser = argparse.ArgumentParser(description='Generate md with all plots created')
+    parser.add_argument(
         "--config",
+        required = True,
         dest="config_file",
         default="config.yaml",
         help="Pass config file [default: %default]",
@@ -17,13 +18,13 @@ def main():
     )
 
     try:
-        (options, args) = parser.parse_args()
-    except OptionError as e:
-        print(f"Argument error: {e}")
+        args = parser.parse_args()
+    except argparse.ArgumentError:
+        print("Argument Error")
         parser.print_help()
         exit()
 
-    config_file = options.config_file
+    config_file = args.config_file
     print(f"Opening config file: {config_file}")
     with open(config_file) as yaml_file:
         yaml_data = yaml.load(yaml_file, Loader=yaml.FullLoader)
