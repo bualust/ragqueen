@@ -1,6 +1,5 @@
 # src/model_interface.py
 import subprocess
-import json
 
 class OllamaModel:
     def __init__(self, model_name="llama3.1"):

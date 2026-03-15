@@ -29,36 +29,17 @@ def main():
     with open(config_file) as yaml_file:
         yaml_data = yaml.load(yaml_file, Loader=yaml.FullLoader)
     
-    chunk_size = yaml_data["chunk_size"]
-    chunk_overlap = yaml_data["chunk_overlap"]
-    preprocessor = Preprocessor(chunk_size, chunk_overlap)
-    has_urls = "urls" in yaml_data and yaml_data["urls"]
-    has_repo = "repo_url" in yaml_data and yaml_data["repo_url"]
-
-    if has_urls and has_repo:
-        raise ValueError("Only provide either `urls` or `repo_url`")
-    elif has_urls:
-        texts = preprocessor.data_loader_urls(yaml_data["urls"])
-    elif has_repo:
-        texts = preprocessor.data_loader_repo(yaml_data["repo_url"])
-    else:
-        raise ValueError("Provide either `urls` or `repo_url`")
-        
-        
+    preprocessor = Preprocessor(
+                    yaml_data["chunk_size"],
+                    yaml_data["chunk_overlap"]
+                )
+    texts = preprocessor.loaded_list(yaml_data)
     chunks = preprocessor.data_splitter(texts)
 
     retriever = Retriever()
     retriever.build_index(chunks)
-
-    query = input("Enter your question: ")
-    retrieved_chunks = retriever.retrieve(query)
-
-    model = OllamaModel()
-    context = "\n".join(retrieved_chunks)
-    prompt = f"Use the context below to answer the question:\n\n{context}\n\nQuestion: {query}"
-    answer = model.generate(prompt)
-    print("💬 Llama3.1 answer:\n", answer)
-
+    retriever.save("index_store")          # <-- persist to disk
+    print("Index built and saved.")
 
 if __name__ == "__main__":
     main()
