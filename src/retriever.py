@@ -2,6 +2,7 @@
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
+import os
 
 class Retriever:
     def __init__(self, model_name="all-MiniLM-L6-v2"):
@@ -22,3 +23,11 @@ class Retriever:
         distances, indices = self.index.search(np.array(query_emb, dtype=np.float32), k)
         return [self.texts[i] for i in indices[0]]
 
+    def save(self, directory):
+        os.makedirs(directory, exist_ok=True)
+        faiss.write_index(self.index, os.path.join(directory, "index.faiss"))
+        np.save(os.path.join(directory, "texts.npy"), np.array(self.texts))
+
+    def load(self, directory):
+        self.index = faiss.read_index(os.path.join(directory, "index.faiss"))
+        self.texts = np.load(os.path.join(directory, "texts.npy"), allow_pickle=True).tolist()

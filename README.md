@@ -15,7 +15,12 @@ Set
 export TOKENIZERS_PARALLELISM=false
 ```
 
-You can then run the RAG via
+To download the documentation and process it into embeddings
 ```bash
-uv run main.py --config config.yaml 
+uv run process_input.py --config config.yaml
+```
+
+To ask a query
+```bash
+uv run query.py
 ```
