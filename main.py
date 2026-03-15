@@ -29,9 +29,10 @@ def main():
     with open(config_file) as yaml_file:
         yaml_data = yaml.load(yaml_file, Loader=yaml.FullLoader)
     
-    chunk_size = yaml_data["chunk_size"]
-    chunk_overlap = yaml_data["chunk_overlap"]
-    preprocessor = Preprocessor(chunk_size, chunk_overlap)
+    preprocessor = Preprocessor(
+                    yaml_data["chunk_size"],
+                    yaml_data["chunk_overlap"]
+                )
     texts = preprocessor.loaded_list(yaml_data)
     chunks = preprocessor.data_splitter(texts)
 
