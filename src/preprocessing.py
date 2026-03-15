@@ -1,6 +1,7 @@
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
+from langchain_core.documents import Document
 from src.gitlabreporeader import GitlabRepoReader
 
 class Preprocessor:
@@ -11,12 +12,12 @@ class Preprocessor:
             chunk_overlap=chunk_overlap
         )
     
-    def data_loader_urls(self,urls):
+    def data_loader_urls(self, urls) -> list[Document]:
         print(f"Scanning following urls:\n{urls}")
         docs = [WebBaseLoader(url).load() for url in urls]
         return docs
     
-    def data_loader_repo(self,repo_url):
+    def data_loader_repo(self, repo_url) -> list[Document]:
         repo_reader = GitlabRepoReader(
             repo_url,
             local_dir="./repo_cache"
@@ -28,6 +29,22 @@ class Preprocessor:
             loader = UnstructuredMarkdownLoader(str(md_path), mode="elements")
             docs.extend(loader.load())
         return docs
+
+    def loaded_list(self, yaml_data) -> list[Document]:
+        """ checks if a repo was provided or a
+        list of urls and return texts list """
+
+        has_urls = "urls" in yaml_data and yaml_data["urls"]
+        has_repo = "repo_url" in yaml_data and yaml_data["repo_url"]
+
+        if has_urls and has_repo:
+            raise ValueError("Only provide either `urls` or `repo_url`")
+        elif has_urls:
+            return self.data_loader_urls(yaml_data["urls"])
+        elif has_repo:
+            return self.data_loader_repo(yaml_data["repo_url"])
+        else:
+            raise ValueError("Provide either `urls` or `repo_url`")
 
     def data_splitter(self, docs):
         if any(isinstance(d, list) for d in docs):
