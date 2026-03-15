@@ -13,11 +13,13 @@ class Preprocessor:
         )
     
     def data_loader_urls(self, urls) -> list[Document]:
+        """Load files from urls"""
         print(f"Scanning following urls:\n{urls}")
         docs = [WebBaseLoader(url).load() for url in urls]
         return docs
     
     def data_loader_repo(self, repo_url) -> list[Document]:
+        """Load MarkDown files from git repository"""
         repo_reader = GitlabRepoReader(
             repo_url,
             local_dir="./repo_cache"
@@ -31,7 +33,7 @@ class Preprocessor:
         return docs
 
     def loaded_list(self, yaml_data) -> list[Document]:
-        """ checks if a repo was provided or a
+        """Check if a repo was provided or a
         list of urls and return texts list """
 
         has_urls = "urls" in yaml_data and yaml_data["urls"]
@@ -47,6 +49,8 @@ class Preprocessor:
             raise ValueError("Provide either `urls` or `repo_url`")
 
     def data_splitter(self, docs):
+        """ In case of loaded list from urls the list will have the url first
+        remove that and split the text """
         if any(isinstance(d, list) for d in docs):
             docs_list = [item for sublist in docs for item in sublist]
         else:
